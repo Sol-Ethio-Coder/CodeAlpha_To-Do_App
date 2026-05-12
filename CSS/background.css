@@ -1,0 +1,311 @@
+/* =============================================
+   background.css — Animated vivid background
+   ============================================= */
+
+/* ── Animated gradient mesh on body ── */
+body {
+  background: #0D0D14;
+  overflow-x: hidden;
+}
+
+/* ── Floating orb canvas layer ── */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.orb-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, #7B3FF2 0%, #4A1CB8 60%, transparent 100%);
+  top: -120px; left: -80px;
+  animation: drift1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 440px; height: 440px;
+  background: radial-gradient(circle, #FF4FA3 0%, #C4146A 60%, transparent 100%);
+  top: 30%; right: -100px;
+  animation: drift2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, #00D4B4 0%, #007A68 60%, transparent 100%);
+  bottom: -80px; left: 30%;
+  animation: drift3 20s ease-in-out infinite;
+}
+
+.orb-4 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #FFB347 0%, #E07B00 60%, transparent 100%);
+  top: 55%; left: 10%;
+  animation: drift4 25s ease-in-out infinite;
+}
+
+.orb-5 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #4FC3F7 0%, #0277BD 60%, transparent 100%);
+  top: 15%; left: 45%;
+  animation: drift5 16s ease-in-out infinite;
+}
+
+/* ── Grain overlay ── */
+.bg-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── Grid line overlay ── */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Floating particles ── */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  animation: floatUp linear infinite;
+}
+
+/* ── App wrapper sits above bg ── */
+.app-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Sidebar gets glass treatment ── */
+.sidebar {
+  background: rgba(14, 12, 22, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+
+/* ── Main area glass cards ── */
+.main {
+  position: relative;
+}
+
+/* Main header text gets lighter treatment on dark bg */
+.page-title { color: #F0EDF8; }
+.page-date  { color: rgba(240,237,248,0.45); }
+
+/* ── Add form glass ── */
+.add-form-wrap {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.form-input {
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  color: #F0EDF8;
+}
+
+.form-input::placeholder { color: rgba(240,237,248,0.35); }
+.form-input:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: #A855F7;
+}
+
+.form-select {
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  color: rgba(240,237,248,0.8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a0a0b0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.form-select option { background: #1A1428; color: #F0EDF8; }
+.form-select:focus { border-color: #A855F7; }
+
+.btn-cancel {
+  color: rgba(240,237,248,0.5);
+  border-radius: var(--radius-sm);
+}
+.btn-cancel:hover { background: rgba(255,255,255,0.08); color: #F0EDF8; }
+
+.btn-submit {
+  background: linear-gradient(135deg, #7B3FF2, #C026D3);
+  border: none;
+  color: #fff;
+}
+.btn-submit:hover {
+  background: linear-gradient(135deg, #8B4FF8, #D036E3);
+}
+
+/* ── Task cards glass ── */
+.task-item {
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.task-item:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+}
+
+.task-text { color: #F0EDF8; }
+.task-item.is-done .task-text { color: rgba(240,237,248,0.35); }
+
+.task-timestamp { color: rgba(240,237,248,0.3); }
+
+/* ── Checkbox ── */
+.task-checkbox {
+  border-color: rgba(255,255,255,0.25);
+}
+.task-checkbox:hover {
+  border-color: #A855F7;
+  background: rgba(168,85,247,0.15);
+}
+.task-checkbox.checked {
+  background: linear-gradient(135deg, #7B3FF2, #C026D3);
+  border-color: transparent;
+}
+
+/* ── Action buttons ── */
+.action-btn { color: rgba(240,237,248,0.35); }
+.action-btn:hover { background: rgba(255,255,255,0.1); color: #F0EDF8; }
+.action-btn.delete:hover { background: rgba(239,68,68,0.2); color: #F87171; }
+.action-btn.edit:hover { background: rgba(168,85,247,0.2); color: #C084FC; }
+
+/* ── Add button ── */
+.btn-add-open {
+  background: linear-gradient(135deg, #7B3FF2, #C026D3);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 20px rgba(123,63,242,0.5);
+}
+.btn-add-open:hover {
+  background: linear-gradient(135deg, #8B4FF8, #D036E3);
+  box-shadow: 0 6px 28px rgba(123,63,242,0.7);
+}
+
+/* ── Bulk bar ── */
+.bulk-bar {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.bulk-label { color: rgba(240,237,248,0.4); }
+.bulk-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(240,237,248,0.6);
+}
+.bulk-btn:hover { background: rgba(255,255,255,0.1); color: #F0EDF8; border-color: rgba(255,255,255,0.2); }
+.bulk-btn-danger:hover { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); color: #F87171; }
+
+/* ── Empty state ── */
+.empty-icon { color: rgba(255,255,255,0.15); }
+.empty-title { color: rgba(240,237,248,0.5); }
+.empty-sub { color: rgba(240,237,248,0.3); }
+
+/* ── Modal ── */
+.modal-overlay { background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); }
+.modal {
+  background: rgba(20,16,36,0.92);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+.modal-title { color: #F0EDF8; }
+
+/* ── Sidebar nav overrides ── */
+.brand-name { color: #F0EDF8; }
+.nav-btn.active { background: rgba(168,85,247,0.18); color: #C084FC; }
+.nav-btn.active .nav-count { background: rgba(168,85,247,0.25); color: #C084FC; }
+.sidebar-divider { background: rgba(255,255,255,0.06); }
+
+/* Sidebar progress */
+#progress-pct { color: #C084FC; }
+.progress-track { background: rgba(255,255,255,0.07); }
+.progress-bar { background: linear-gradient(90deg, #7B3FF2, #C026D3); }
+
+/* ── Keyframe animations ── */
+@keyframes drift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(60px, 80px) scale(1.08); }
+  66%  { transform: translate(-40px, 120px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-80px, -60px) scale(1.1); }
+  66%  { transform: translate(-120px, 40px) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(100px, -80px) scale(1.12); }
+  70%  { transform: translate(60px, -140px) scale(0.94); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift4 {
+  0%   { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(80px, 60px) scale(1.06); }
+  65%  { transform: translate(-60px, 100px) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift5 {
+  0%   { transform: translate(0, 0) scale(1); }
+  45%  { transform: translate(-70px, -90px) scale(1.15); }
+  75%  { transform: translate(50px, -60px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* ── Scrollbar dark ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }

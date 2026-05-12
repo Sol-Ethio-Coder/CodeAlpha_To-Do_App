@@ -1,0 +1,206 @@
+/* =============================================
+   mobile.css — Responsive layout
+   > 960px  : desktop  (sidebar always visible)
+   ≤ 960px  : tablet   (hamburger drawer)
+   ≤ 640px  : phone    (FAB, stacked form)
+   ≤ 400px  : small phone
+   ============================================= */
+
+
+/* ══════════════════════════════════════════════════
+   HIDDEN-BY-DEFAULT MOBILE COMPONENTS
+   ══════════════════════════════════════════════════ */
+.sidebar-backdrop,
+.topbar,
+.btn-hamburger,
+.btn-sidebar-close,
+.btn-fab { display: none; }
+
+
+/* ── Topbar ── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: #0D0D14;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  z-index: 400;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+}
+.topbar-brand        { display:flex; align-items:center; gap:8px; flex:1; }
+.topbar-brand-icon   { font-size:16px; color:#C084FC; }
+.topbar-brand-name   { font-family:'DM Serif Display',serif; font-size:18px; color:#F0EDF8; }
+
+/* ── Hamburger ── */
+.btn-hamburger {
+  width:40px; height:40px;
+  align-items:center; justify-content:center;
+  border-radius:10px;
+  background: rgba(168,85,247,.15);
+  border: 1px solid rgba(168,85,247,.35);
+  color: #C084FC;
+  font-size:20px;
+  transition: background .2s, transform .15s;
+  flex-shrink:0;
+}
+.btn-hamburger:hover { background:rgba(168,85,247,.28); transform:scale(1.05); }
+.btn-hamburger:active { transform:scale(0.95); }
+
+/* ── Sidebar close ── */
+.btn-sidebar-close {
+  position: absolute;
+  top: 16px; right: 14px;
+  width: 34px; height: 34px;
+  align-items:center; justify-content:center;
+  border-radius:8px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: #F0EDF8;
+  font-size:16px;
+  transition: background .2s, transform .15s;
+}
+.btn-sidebar-close:hover { background:rgba(239,68,68,.2); border-color:rgba(239,68,68,.4); color:#F87171; transform:scale(1.05); }
+
+/* ── Backdrop ── */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+.sidebar-backdrop.is-visible { opacity:1; pointer-events:all; }
+
+/* ── FAB ── */
+.btn-fab {
+  position: fixed;
+  bottom: 24px; right: 20px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#7B3FF2,#C026D3);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  align-items:center; justify-content:center;
+  box-shadow: 0 6px 24px rgba(123,63,242,.65);
+  z-index: 350;
+  border: none;
+  transition: transform .18s, box-shadow .18s;
+}
+.btn-fab:hover  { transform:scale(1.1);  box-shadow:0 8px 32px rgba(123,63,242,.85); }
+.btn-fab:active { transform:scale(0.94); }
+
+
+/* ══════════════════════════════════════════════════
+   TABLET  ≤ 960px
+   ══════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+
+  /* Show mobile chrome */
+  .topbar            { display: flex; }
+  .btn-hamburger     { display: flex; }
+  .btn-sidebar-close { display: flex; }
+  .sidebar-backdrop  { display: block; }
+
+  /* Main clears topbar */
+  .main { margin-left: 0; padding: 68px 24px 24px; }
+
+  /* Footer compact */
+  .site-footer { padding: 14px 24px; }
+
+  /* ── Sidebar: off-canvas drawer ──
+     Fully opaque so nothing shows through.
+     High z-index so it overlays everything.
+     No backdrop-filter on the drawer itself (was causing blur). */
+  .sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;   /* top:0 left:0 bottom:0 */
+    width: 272px !important;
+    z-index: 600 !important;        /* above backdrop (500) and topbar (400) */
+    background: #100D1E !important; /* solid — no blur/transparency that hides content */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: translateX(-100%) !important;
+    transition: transform .3s cubic-bezier(.4,0,.2,1) !important;
+    box-shadow: none !important;
+    visibility: visible !important; /* always in DOM flow; transform hides it */
+    overflow-y: auto;
+    padding-top: 20px !important;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0) !important;
+    box-shadow: 6px 0 48px rgba(0,0,0,.8) !important;
+  }
+
+  /* Nav items: remove desktop translateX nudge on mobile */
+  .nav-btn:hover  { transform: none; }
+  .nav-btn.active { transform: none; }
+  .nav-btn::after { display: none; } /* no shimmer sweep on touch */
+}
+
+
+/* ══════════════════════════════════════════════════
+   PHONE  ≤ 640px
+   ══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  .btn-fab      { display: flex; }
+  .btn-add-open { display: none; }
+
+  .main { padding: 64px 12px 20px; }
+  .site-footer { padding: 12px 14px; }
+
+  .main-header { flex-direction:column; gap:4px; margin-bottom:16px; align-items:flex-start; }
+  .page-title  { font-size: 24px; }
+
+  /* Stacked form */
+  .form-row-meta  { flex-direction:column; align-items:stretch; gap:8px; }
+  .form-select    { width:100%; }
+  .form-actions   { margin-left:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .btn-cancel, .btn-submit { width:100%; text-align:center; padding:12px; font-size:14px; }
+
+  /* Tasks: always show actions on touch */
+  .task-actions { opacity: 1; transform: translateX(0); }
+  .task-item    { padding: 11px 12px; gap: 10px; }
+  .task-text    { font-size: 14px; }
+
+  /* Bulk bar */
+  .bulk-bar   { flex-direction:column; align-items:stretch; gap:8px; margin-top:14px; padding-top:14px; }
+  .bulk-label { text-align:center; }
+  .bulk-btn   { width:100%; text-align:center; padding:11px; }
+
+  /* Modal — bottom sheet */
+  .modal-overlay { align-items:flex-end; padding:0; }
+  .modal {
+    border-radius: 20px 20px 0 0;
+    max-width: 100%; width: 100%;
+    padding: 24px 18px 36px;
+    animation: sheetUp .28s cubic-bezier(.34,1.1,.64,1);
+  }
+  @keyframes sheetUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+  .modal .form-row-meta   { flex-direction:column; align-items:stretch; }
+  .modal .form-select     { width:100%; }
+  .modal-footer           { flex-direction:column-reverse; gap:8px; margin-top:18px; }
+  .modal-footer .btn-cancel,
+  .modal-footer .btn-submit { width:100%; text-align:center; padding:13px; }
+
+  /* Footer inner */
+  .footer-inner  { flex-direction:column; align-items:flex-start; gap:12px; }
+  .footer-links  { flex-wrap:wrap; }
+}
+
+
+/* ══════════════════════════════════════════════════
+   SMALL PHONE  ≤ 400px
+   ══════════════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .main        { padding: 60px 10px 16px; }
+  .page-title  { font-size: 20px; }
+  .task-timestamp { display: none; }
+  .btn-fab { bottom:18px; right:14px; width:50px; height:50px; font-size:24px; }
+}
