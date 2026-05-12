@@ -408,3 +408,7 @@ git clone https://github.com/Sol-Ethio-Coder/tasko.git
 📄 License
 © 2026 Sol Ethio Coder — All rights reserved
 
+Made with ✦ by Sol Ethio Coder
+
+
+
